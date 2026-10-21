@@ -1,0 +1,12 @@
+# pnpm 12 起，项目配置统一存放于此文件（package.json 的 "pnpm" 字段已废弃）
+#
+# 允许以下依赖执行安装脚本：
+#   esbuild            —— Vite 的打包器，postinstall 放置平台二进制
+#   electron-winstaller —— electron-builder 的 Windows 打包组件
+#
+# 注意：Electron 42+ 已移除 postinstall（供应链安全考虑），二进制改为
+# 首次运行 `pnpm dev` 时惰性下载，或执行 `pnpm install:electron` 手动安装，
+# 因此无需（也不能）在此批准 electron 的构建脚本。
+allowBuilds:
+  esbuild: true
+  electron-winstaller: true

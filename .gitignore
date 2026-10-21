@@ -1,0 +1,22 @@
+node_modules/
+out/
+release/
+dist/
+*.log
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.workbuddy/
+
+# 环境变量（未来如接入密钥/配置；示例文件 .env.example 保留）
+.env
+.env.*
+!.env.example
+
+# Windows 系统垃圾文件
+Thumbs.db
+desktop.ini
+
+# TypeScript 增量构建缓存
+*.tsbuildinfo

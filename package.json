@@ -1,0 +1,54 @@
+{
+  "name": "word-card-app",
+  "version": "1.0.0",
+  "description": "WordCard — 极简暗黑风的技术阅读单词卡片记忆软件（Electron + Vue 3 + TypeScript + Vite + Tailwind CSS）",
+  "author": "WordCard",
+  "license": "MIT",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "cross-env ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "node --test tests/sync-merge.test.ts",
+    "install:electron": "cross-env ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ install-electron",
+    "dist": "pnpm run typecheck && pnpm run build && electron-builder --windows --config"
+  },
+  "dependencies": {
+    "pinia": "^4.0.3",
+    "vue": "^3.5.44"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "cross-env": "^10.1.0",
+    "electron": "^44.7.2",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^5.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.7",
+    "vue-tsc": "^3.3.13"
+  },
+  "build": {
+    "appId": "com.wordcard.app",
+    "productName": "WordCard",
+    "copyright": "Copyright © 2026 WordCard",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

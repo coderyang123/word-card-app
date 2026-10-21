@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/*
+ * 暗黑主题设计令牌 —— 唯一配色来源
+ * 背景 #0d0d0d / 卡片 #1a1a1a / 主文字 #ffffff / 次要 #e0e0e0 / 弱 #a0a0a0 / 高亮绿 #00c853
+ */
+@theme {
+  --color-base: #0d0d0d;
+  --color-surface: #121212;
+  --color-card: #1a1a1a;
+  --color-card-hover: #212121;
+  --color-line: #262626;
+  --color-line-strong: #383838;
+
+  --color-ink: #ffffff;
+  --color-ink-soft: #e0e0e0;
+  --color-ink-muted: #a0a0a0;
+  --color-ink-faint: #6e6e6e;
+
+  --color-accent: #00c853;
+  --color-accent-soft: #4ae08a;
+  --color-warn: #ffb300;
+  --color-danger: #ff5252;
+
+  --font-sans: "Inter", "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", "SF Mono", Consolas,
+    "Courier New", monospace;
+}
+
+@layer base {
+  html,
+  body,
+  #app {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-base);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 32%, transparent);
+  }
+
+  /* 暗色滚动条 */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2e2e2e;
+    border: 2px solid var(--color-base);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #404040;
+  }
+}
+
+@layer components {
+  /* Electron 无边框标题栏拖拽区 */
+  .drag-region {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  /* 区块小标题（例句 / 理解 / 补充搭配） */
+  .section-label {
+    @apply text-[11px] font-medium tracking-[0.14em] text-ink-faint uppercase;
+  }
+
+  /* 例句中高亮的目标词 */
+  .hl-word {
+    color: var(--color-accent-soft);
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    border-radius: 4px;
+    padding: 0 0.16em;
+    font-weight: 600;
+  }
+}
+
+/* 卡片翻转 / 内容切换过渡 */
+.fade-up-enter-active,
+.fade-up-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+.fade-up-enter-from,
+.fade-up-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* 弹窗过渡 */
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.18s ease;
+}
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+.modal-enter-active .modal-panel,
+.modal-leave-active .modal-panel {
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease;
+}
+.modal-enter-from .modal-panel,
+.modal-leave-to .modal-panel {
+  transform: scale(0.96) translateY(8px);
+  opacity: 0;
+}
