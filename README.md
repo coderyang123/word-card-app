@@ -1,8 +1,8 @@
 # WordCard · 技术阅读单词卡
 
-一款专为**技术阅读**打造的极简暗黑风 Windows 桌面端单词卡片记忆软件。
+一款专为 **技术阅读**打造的极简暗黑风 Windows 桌面端单词卡片记忆软件。
 
-技术栈：**Electron 44 + Vue 3.5 + TypeScript 5.9 + Vite 7 + Tailwind CSS 4 + Pinia 4**
+技术栈： **Electron 44 + Vue 3.5 + TypeScript 5.9 + Vite 7 + Tailwind CSS 4 + Pinia 4**
 
 ## 快速开始
 
@@ -24,7 +24,8 @@ pnpm run build
 pnpm dist
 ```
 
-**关于 Electron 二进制**：Electron 42+ 出于供应链安全考虑移除了 postinstall，二进制改为**首次运行 `pnpm dev` 时惰性下载**（已配置 npmmirror 镜像加速）。如需手动安装：`pnpm install:electron`。
+**关于 Electron 二进制**：Electron 42+ 出于供应链安全考虑移除了 postinstall，二进制改为 **首次运行 `pnpm dev` 时惰性下载**
+（已配置 npmmirror 镜像加速）。如需手动安装：`pnpm install:electron`。
 
 ## 功能特性
 
@@ -32,9 +33,9 @@ pnpm dist
 
 - **翻卡记忆模式**：默认只展示单词、音标与例句，按 `空格` / `Enter` 或点击卡片后展开核心含义、理解说明与补充搭配；可在设置中改为默认全显
 - **全键盘操作**：
-  - `空格` / `Enter`：翻转卡片
-  - `1` / `2` / `3`：评级（不认识 / 模糊 / 认识）并自动切到下一张
-  - `←` / `→`：切换上一个 / 下一个单词
+    - `空格` / `Enter`：翻转卡片
+    - `1` / `2` / `3`：评级（不认识 / 模糊 / 认识）并自动切到下一张
+    - `←` / `→`：切换上一个 / 下一个单词
 - **顺序 / 随机乱序**两种播放顺序，随机模式在切换时重新洗牌
 - 点击发音图标调用系统 Speech API 朗读单词（Windows TTS）
 - 例句中的目标词（含常见词形变化）自动高亮
@@ -50,11 +51,11 @@ pnpm dist
 
 ### 云同步（GitHub 私有 Gist）
 
-- 多设备同步**词库 + 学习进度 + 设置**到你的 GitHub 私有 Gist（单文件 `wordcard.json`）
+- 多设备同步 **词库 + 学习进度 + 设置**到你的 GitHub 私有 Gist（单文件 `wordcard.json`）
 - **启动时自动拉取合并**，上传手动触发（设置 → 云同步 → 立即上传）
 - 首次上传自动创建私有 Gist；其他设备填入同一 Token 自动发现并绑定，无需手动复制 ID
 - Token 经本机系统加密（Windows DPAPI / macOS Keychain）后存放，明文不落盘、不进渲染层
-- 合并策略：**词级合并**——按 `updatedAt` 取较新版本，并集语义不丢数据；设置为整体覆盖
+- 合并策略： **词级合并**——按 `updatedAt` 取较新版本，并集语义不丢数据；设置为整体覆盖
 - 已知局限：删除单词的操作不会同步（其他设备重拉会复活）；同步依赖本机时钟
 
 ### 统计与列表管理
@@ -75,25 +76,26 @@ pnpm dist
 
 ## 数据模型
 
-字段命名与导入的 `vocabulary.json` 完全一致，核心类型定义见 `src/shared/word-types.ts`（渲染层路径 `@/types/vocabulary` 为其 re-export）：
+字段命名与导入的 `vocabulary.json` 完全一致，核心类型定义见 `src/shared/word-types.ts`（渲染层路径 `@/types/vocabulary` 为其
+re-export）：
 
 ```ts
 interface WordEntry {
-  id: string
-  word: string              // immutable
-  pronunciation: string     // /ɪˈmjuːtəbl/
-  partOfSpeech: string      // adjective (形容词)
-  coreMeaning: string       // 不可变的（字符串，卡片「核心含义」原样展示）
-  example: string           // 英文例句（目标词高亮）
-  translation: string       // 例句的中文翻译（卡片「我的理解」）
-  collocations: Collocation[]   // [{ en: "immutable object", zh: "不可变对象" }]
-  extendedMeanings: string[]    // 其他义项（卡片「其他义项」）
-  status: WordStatus            // 'new' | 'learning' | 'mastered'
-  createdAt: number
-  updatedAt: number
-  reviewCount: number
-  lastRating: Rating | null      // 'unknown' | 'fuzzy' | 'known'
-  starred: boolean
+    id: string
+    word: string              // immutable
+    pronunciation: string     // /ɪˈmjuːtəbl/
+    partOfSpeech: string      // adjective (形容词)
+    coreMeaning: string       // 不可变的（字符串，卡片「核心含义」原样展示）
+    example: string           // 英文例句（目标词高亮）
+    translation: string       // 例句的中文翻译（卡片「我的理解」）
+    collocations: Collocation[]   // [{ en: "immutable object", zh: "不可变对象" }]
+    extendedMeanings: string[]    // 其他义项（卡片「其他义项」）
+    status: WordStatus            // 'new' | 'learning' | 'mastered'
+    createdAt: number
+    updatedAt: number
+    reviewCount: number
+    lastRating: Rating | null      // 'unknown' | 'fuzzy' | 'known'
+    starred: boolean
 }
 ```
 
@@ -108,8 +110,15 @@ interface WordEntry {
     "coreMeaning": "不可变的",
     "example": "Immutable data structures make state changes easy to trace.",
     "translation": "不可变数据结构让状态变更易于追踪。",
-    "collocations": [{ "en": "immutable object", "zh": "不可变对象" }],
-    "extendedMeanings": ["不可改变的"]
+    "collocations": [
+      {
+        "en": "immutable object",
+        "zh": "不可变对象"
+      }
+    ],
+    "extendedMeanings": [
+      "不可改变的"
+    ]
   }
 ]
 ```
@@ -118,17 +127,17 @@ interface WordEntry {
 
 ## UI 规范（暗黑主题）
 
-| 令牌 | 值 | 用途 |
-| --- | --- | --- |
-| `--color-base` | `#0d0d0d` | 应用背景 |
-| `--color-card` | `#1a1a1a` | 卡片背景 |
-| `--color-line` | `#262626` | 微弱边框 |
-| `--color-ink` | `#ffffff` | 主标题 / 单词 |
-| `--color-ink-soft` | `#e0e0e0` | 次要正文 |
-| `--color-ink-muted` | `#a0a0a0` | 弱化文字 |
-| `--color-accent` | `#00c853` | 高亮绿（状态 / 主操作） |
-| `--color-warn` | `#ffb300` | 学习中状态 |
-| `--color-danger` | `#ff5252` | 不认识评级 |
+| 令牌                | 值        | 用途                    |
+|---------------------|-----------|-------------------------|
+| `--color-base`      | `#0d0d0d` | 应用背景                |
+| `--color-card`      | `#1a1a1a` | 卡片背景                |
+| `--color-line`      | `#262626` | 微弱边框                |
+| `--color-ink`       | `#ffffff` | 主标题 / 单词           |
+| `--color-ink-soft`  | `#e0e0e0` | 次要正文                |
+| `--color-ink-muted` | `#a0a0a0` | 弱化文字                |
+| `--color-accent`    | `#00c853` | 高亮绿（状态 / 主操作） |
+| `--color-warn`      | `#ffb300` | 学习中状态              |
+| `--color-danger`    | `#ff5252` | 不认识评级              |
 
 设计令牌集中在 `src/renderer/src/assets/main.css` 的 Tailwind v4 `@theme` 中，改一处即可全局换肤。
 
@@ -184,9 +193,12 @@ word-card-app/
 
 ## 架构说明
 
-- **三段式构建**：`electron-vite` 分别打包 main（CJS）、preload、renderer；主进程通过 `titleBarStyle: 'hidden'` + `titleBarOverlay` 获得无边框暗色标题栏，原生窗口按钮由系统绘制
-- **状态管理**：Pinia setup store 拆分「持久化状态」（词库、设置）与「会话状态」（筛选、当前位置、翻面）；`usePersistedRef` 以深度 watch 实现写入即持久化
+- **三段式构建**：`electron-vite` 分别打包 main（CJS）、preload、renderer；主进程通过 `titleBarStyle: 'hidden'` +
+  `titleBarOverlay` 获得无边框暗色标题栏，原生窗口按钮由系统绘制
+- **状态管理**：Pinia setup store 拆分「持久化状态」（词库、设置）与「会话状态」（筛选、当前位置、翻面）；`usePersistedRef` 以深度
+  watch 实现写入即持久化
 - **牌组模型**：`deck = 筛选结果 + 播放顺序`，导航 / 评级均基于 deck，筛选与乱序对复习流程即时生效
 - **安全细节**：渲染层 `contextIsolation: true` + `nodeIntegration: false`；例句高亮先 HTML 转义再插入 `<mark>`，防止词库内容注入
 - **快捷键防冲突**：全局 `keydown` 监听会跳过输入框焦点，且弹窗打开时自动屏蔽
-- **云同步边界**：token 明文与 GitHub 网络请求只存在于主进程（safeStorage 加密存 userData）；preload 仅 IPC 透传；渲染层只做合并（`mergeWords` 纯函数，按 `updatedAt` 词级 LWW）与 UI
+- **云同步边界**：token 明文与 GitHub 网络请求只存在于主进程（safeStorage 加密存 userData）；preload 仅 IPC 透传；渲染层只做合并（
+  `mergeWords` 纯函数，按 `updatedAt` 词级 LWW）与 UI
